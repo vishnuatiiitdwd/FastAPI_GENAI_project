@@ -1,7 +1,7 @@
 import re
-from services import ocr_services
-from services import transction
-from services import summarization
+from ..services import ocr_services
+from ..services import transction
+from ..services import summarization
 from .embedding import embedding_vectorstore
 def identification_file(path):
     image_matching=re.match(r'[a-zA-Z0-9\-/_@]+\.(img|png|jpg|jpeg)$',path)
@@ -23,8 +23,7 @@ def identification_file(path):
         print("--")
         print(data)
         embedding_vectorstore(data)
-        
-identification_file("data/audio.mp3")        
+       
 
  
 
