@@ -12,11 +12,12 @@ from .controllers import users
 from pathlib import Path
 from fastapi.responses import JSONResponse
 get_db = database.get_db
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-SECRET_KEY = "377d18abea3fd319a51954da1bf84ce8374a55359e634ac461903cdfb494122b"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
-SESSION_COOKIE_NAME = "session_token"
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
+SESSION_COOKIE_NAME = os.getenv("SESSION_COOKIE_NAME")
 
 router = APIRouter()
 
