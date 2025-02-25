@@ -7,8 +7,10 @@ from fastapi import HTTPException
 def create(request: schemas.User, db:Session):
     dbuser = db.query(models.User).filter(models.User.username==request.username).first()
     new_user = models.User(username=request.username, email=request.email, password=hashing.get_hash_password(request.password),base_role=request.base_role,auth_role="user")
+    if not new_user:
+        raise HTTPException(status_code=422,detail="Unprocessable entity")
     if dbuser:
-        raise HTTPException(status_code=401,detail="User already exists")
+        raise HTTPException(status_code=409,detail="User already exists")
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
