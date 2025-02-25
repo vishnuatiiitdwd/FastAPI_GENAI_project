@@ -7,13 +7,15 @@ from datetime import datetime, timedelta, timezone
 from jwt.exceptions import InvalidTokenError
 import jwt
 from sqlalchemy.orm import Session
-SESSION_COOKIE_NAME = "session_token"
-
+import os
+from dotenv import load_dotenv
+load_dotenv()
 get_db = database.get_db
 
-SECRET_KEY = "377d18abea3fd319a51954da1bf84ce8374a55359e634ac461903cdfb494122b"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+SESSION_COOKIE_NAME = os.getenv("SESSION_COOKIE_NAME")
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
+ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")
 
 app = FastAPI()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
