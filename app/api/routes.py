@@ -16,6 +16,18 @@ from dotenv import load_dotenv
 from slowapi import Limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+# ✅ Enable CORS (Allow requests from frontend)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Allow frontend
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
 
 
 load_dotenv()
@@ -24,7 +36,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 SESSION_COOKIE_NAME = os.getenv("SESSION_COOKIE_NAME")
 
 router = APIRouter()
-app = FastAPI()
 limiter = Limiter(key_func=get_remote_address)
 get_db = database.get_db
 
@@ -76,7 +87,7 @@ async def update_user(id:int,user:schemas.User,current_user: Annotated[schemas.U
 async def delete_user(id:int,current_user: Annotated[schemas.User, Depends(auth.get_current_active_user)],db:Session=Depends(get_db)):
     return users.del_user(id,db)
 
-@router.post("/upload/")
+@router.post("/upload")
 @limiter.limit("3/minute")
 async def upload_file(request:Request,current_user: Annotated[schemas.User, Depends(auth.get_current_active_user)],file: UploadFile = File(...), question: str = Form(...)):
     try:

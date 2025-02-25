@@ -15,7 +15,6 @@ SESSION_COOKIE_NAME = os.getenv("SESSION_COOKIE_NAME")
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")
-
 get_db = database.get_db
 app = FastAPI()
 
@@ -44,7 +43,17 @@ def create_access_token(data: dict,expires_delta:timedelta | None = None):
     return encoded_jwt
 
 async def get_current_user(request:Request,db:Session=Depends(get_db)):
-    token = request.cookies.get(SESSION_COOKIE_NAME)
+    # token = request.cookies.get(SESSION_COOKIE_NAME)
+    auth_header = request.headers.get("authorization")
+
+    if not auth_header or not auth_header.startswith("Bearer "):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Missing or invalid authorization header",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    token = auth_header.split(" ")[1]
+    print(token)
     credentials_exceptions = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",

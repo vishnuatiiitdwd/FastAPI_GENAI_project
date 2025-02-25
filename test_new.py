@@ -145,6 +145,6 @@ def test_genai_response():
     file_content = b"Fake audio file content"
     files = {"file": ("test_audio.wav", file_content, "audio/wav")}
     data = {"question": "What is the summary of this audio?"}
-    response = client.post("/upload/", files=files, data=data, cookies={"session_token": access_token})
+    response = client.post("/upload", files=files, data=data, cookies={"session_token": access_token})
     assert response.status_code == 200, response.text
     assert response.json()["message"] == "File uploaded successfully"
