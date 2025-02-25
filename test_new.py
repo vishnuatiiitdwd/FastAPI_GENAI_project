@@ -32,7 +32,6 @@ def override_get_db(db_session):
 
 @pytest.fixture
 def mock_user(db_session):
-    """Create a test user in the PostgreSQL database."""
     db = db_session 
     hashed_password = hashing.get_hash_password("password123")
 
