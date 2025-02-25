@@ -9,7 +9,7 @@ model=OllamaLLM(model="llama3.2")
 os.environ["HUGGINGFACEHUB_API_TOKEN"]=os.getenv("HUGGINGFACEHUB_API_TOKEN")
 
 def retriever_docs(query):
-    new_db = FAISS.load_local("/Users/bootlabs/testingforproject/FastAPI_GENAI_project/FastAPI_GENAI_project/app/Model_index", embedding, allow_dangerous_deserialization=True)
+    new_db = FAISS.load_local("/Users/bootlabs/final project/FastAPI_GENAI_project/app/Model_index", embedding, allow_dangerous_deserialization=True)
 
     db= new_db.as_retriever(search_type="similarity",search_kwargs={"k":3})
     return db.invoke(query)
