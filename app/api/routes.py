@@ -78,7 +78,7 @@ async def delete_user(id:int,current_user: Annotated[schemas.User, Depends(auth.
 
 @router.post("/upload/")
 @limiter.limit("3/minute")
-async def upload_audio(request:Request,current_user: Annotated[schemas.User, Depends(auth.get_current_active_user)],file: UploadFile = File(...), question: str = Form(...)):
+async def upload_file(request:Request,current_user: Annotated[schemas.User, Depends(auth.get_current_active_user)],file: UploadFile = File(...), question: str = Form(...)):
     try:
         current_user_role = current_user.base_role
         file_extension = Path(file.filename).suffix
