@@ -11,16 +11,27 @@ from sqlalchemy.orm import Session
 from .controllers import users
 from pathlib import Path
 from fastapi.responses import JSONResponse
-get_db = database.get_db
 import os
 from dotenv import load_dotenv
+from slowapi import Limiter
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
+
+
 load_dotenv()
 
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 SESSION_COOKIE_NAME = os.getenv("SESSION_COOKIE_NAME")
 
 router = APIRouter()
+app = FastAPI()
+limiter = Limiter(key_func=get_remote_address)
+get_db = database.get_db
 
+
+@app.exception_handler(RateLimitExceeded)
+async def ratelimit(request,exc):
+    return {"error":"Rate limit exceeded , try again later"}
 
 @router.post("/login_token")
 async def login_for_access_token(response:Response,form_data: Annotated[OAuth2PasswordRequestForm,Depends()],db: Session= Depends(get_db))->schemas.Token:
@@ -37,7 +48,9 @@ async def login_for_access_token(response:Response,form_data: Annotated[OAuth2Pa
     return schemas.Token(access_token=access_token,token_type="bearer")
 
 @router.get("/users/me",response_model=schemas.ShowUser)
+@limiter.limit("3/minute")
 async def read_users_me(
+    request:Request,
     current_user: Annotated[schemas.User, Depends(auth.get_current_active_user)],
     db: Session = Depends(get_db)
 ):
@@ -64,7 +77,8 @@ async def delete_user(id:int,current_user: Annotated[schemas.User, Depends(auth.
     return users.del_user(id,db)
 
 @router.post("/upload/")
-async def upload_audio(current_user: Annotated[schemas.User, Depends(auth.get_current_active_user)],file: UploadFile = File(...), question: str = Form(...)):
+@limiter.limit("3/minute")
+async def upload_audio(request:Request,current_user: Annotated[schemas.User, Depends(auth.get_current_active_user)],file: UploadFile = File(...), question: str = Form(...)):
     try:
         current_user_role = current_user.base_role
         file_extension = Path(file.filename).suffix
