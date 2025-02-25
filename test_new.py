@@ -7,9 +7,11 @@ import pytest
 from app.api.dbhelper import models
 from app.api.dbhelper.database import get_db
 from app.api.helpers import hashing
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-
-DB_URL = "postgresql://postgres:Dhilip04@localhost:5432/GenAI"
+DB_URL = os.getenv("DB_URL")
 engine = create_engine(DB_URL)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 Base = declarative_base()
