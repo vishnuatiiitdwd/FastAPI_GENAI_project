@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+    background-color: rgb(122, 185, 185);
+}
+
+.button {
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #c64a4a;;
+    border-radius: 15px;
+    border-color: 10px solid green;
+}
+
+.form-container {
+    margin-top: 35%;
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 300px;
+    margin: 20px auto;
+    display: none;
+    background: #c64a4a;
+    border-radius: 20px;
+}
+.form-container button{
+    background-color: #ccc;
+    border:2px solid black;
+}
+.form-container .change-font>.text{
+    height: 50px;
+    padding: 0px;
+    margin: 0px;
+    text-overflow: None;
+    word-wrap: break-word;
+    overflow-wrap: break-word; 
+    white-space: normal; 
+}
+
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0px;
+    padding: 5px 5px;
+    border-radius:15px ;
+}
+
+.button button:nth-child(1){
+    background-color: rgb(207, 215, 212);
+    position: absolute;
+    left:20px;
+    border-radius: 15px ;
+
+
+}
+.button button:nth-child(2){
+    background-color: rgb(207, 215, 212);
+    position: absolute;
+    right:20px;
+    border-radius: 15px ;
+
+
+}
+.button button:nth-child(1)>img{
+    width:15px;
+    height:15px;
+    padding: 0px;
+    margin:0px;
+}
+@keyframes example {
+    0%   {background-color:red; color:white;left:0px; top:0px;}
+    50%  {background-color:yellow;color:red; left:100vw; top:0px;}
+    75%  {background-color:rgb(72, 87, 123);color:rgb(255, 0, 195) ;left:50vw; top:0px;}
+    100%  {background-color:rgb(255, 0, 195);color:black ;left:0; top:0px;}
+
+
+  }
+  
+  /* The element to apply the animation to */
+  .transistion{
+    width: 70px;
+    height: 70px;
+    border-radius: 50px;
+    position: relative;
+    background-color: red;
+    animation-name: example;
+    animation-duration: 4s;
+
+  }
+  .transistion2{
+    position: absolute;
+    bottom:10px;
+  }

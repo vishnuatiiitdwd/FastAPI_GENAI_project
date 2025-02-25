@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Hub</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="button">
+        <button onclick="showhome()"><img src="Home icon.png" alt="home" srcset=""></button>
+        <button onclick="showSignup()">Signup</button>
+        <button onclick="showLogin()">Login</button>
+        <button onclick="showUploader()">File Uploader</button>
+        <button onclick="showLogout()">Logout</button>
+       
+    </div>
+
+    <div id="fileUploader" class="form-container" style="display: none;">
+        <form>
+            <div class="change-font">
+                <label><b>File Uploader</b></label>
+                <input type="file">
+            </div>
+            <div class="change-font">
+                <input type="text" class="text" placeholder="Enter your Question">
+                <input type="button" value="Submit">
+            </div> 
+        </form>
+    </div>
+
+    <div id="signupForm" class="form-container" style="display: none;">
+        <form action="">
+            <label for="user_name">User Name</label>
+            <input type="text" name="user_name" placeholder="Enter your name">
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Enter your password">
+            <label for="email">Email</label>
+            <input type="email" name="email" placeholder="Enter your mail">
+            <label for="user_role">User Role</label>
+            <Select type="user_role">
+                <option value="None"></option>
+                <option value="Lawyer">Lawyer</option>
+                <option value="Banker">Banker</option>
+                <option value="Student">Student</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Enterprise">Enterprise</option>
+            </Select>
+            <label for="auth_role">auth_role</label>
+            <select type="auth_role">
+                <option value="None"></option>
+                <option value="admin">admin</option>
+                <option value="user">user</option>
+            </select>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <div id="loginForm" class="form-container" style="display: none;">
+        <form action="">
+            <label for="user_name">User Name</label>
+            <input type="text" name="user_name"  placeholder="Enter your name">
+            <label for="password" >Password</label>
+            <input type="password" name="password"  placeholder="Enter your Password">
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div id="logoutform" class="form-container" style="display:none;"></div>
+
+    <script src="index.js"></script>
+    <div id="welcome-page" class="home" >
+        <h1>Welcome to AI-Project Hub</h1>
+        <p>About this project</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At ipsa, consectetur quae molestiae deleniti dolor amet iure nulla incidunt doloribus aut, assumenda aliquid illo ex sed pariatur eligendi repellat. Officiis.</p>
+    </div>
+    <div class="transistion2">
+        <div class="transistion">
+            <h1 style="text-align: center;padding:15px 0px;">AI</h1>
+        </div>
+    </div>
+    
+</body>
+</html>
