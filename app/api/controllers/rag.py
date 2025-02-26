@@ -24,7 +24,7 @@ def rag_response(filepath,query,file_extension,current_user_role):
         for word in extraction:
             text.append(word.page_content)
         final_text = ' '.join(text)
-        answerfromthellm = generate_response(final_text,query,current_user_role)
+        answerfromthellm = generate_response(Document(page_content=final_text),query,current_user_role)
         return answerfromthellm
 
 

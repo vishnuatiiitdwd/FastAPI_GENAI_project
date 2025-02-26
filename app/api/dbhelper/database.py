@@ -1,6 +1,6 @@
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
 
 DB_URL = "postgresql://postgres:Dhilip04@localhost:5432/GenAI"
 engine = create_engine(DB_URL)
