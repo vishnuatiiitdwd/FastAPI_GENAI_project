@@ -11,7 +11,7 @@ def rag_response(filepath,query,file_extension,current_user_role):
             res = res["text"]
         answerfromthellm = generate_response(Document(page_content=res),query,current_user_role)
         return answerfromthellm
-    elif file_extension == "jpg":
+    elif file_extension == ".jpg":
         response = reader.readtext(filepath)
         text = [textscarping[1] for textscarping in response]
         text2 = ' '.join(text)
