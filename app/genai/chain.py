@@ -27,7 +27,6 @@ def generate_response(extracted_text, query, current_user_role):
         {
             "context": retriever.with_config(run_name="docs"),
             "question": RunnablePassthrough(),
-            # "user_role": current_user  # Now it's a string
         }
         | prompt
         | llm
